@@ -1,74 +1,35 @@
 # TOC Project 2020
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/dc7fa47fcd809b99d087/maintainability)](https://codeclimate.com/github/NCKU-CCS/TOC-Project-2020/maintainability)
-
-[![Known Vulnerabilities](https://snyk.io/test/github/NCKU-CCS/TOC-Project-2020/badge.svg)](https://snyk.io/test/github/NCKU-CCS/TOC-Project-2020)
-
-
 Template Code for TOC Project 2020
 
 A Line bot based on a finite state machine
-
-More details in the [Slides](https://hackmd.io/@TTW/ToC-2019-Project#) and [FAQ](https://hackmd.io/s/B1Xw7E8kN)
 
 ## Setup
 
 ### Prerequisite
 * Python 3.6
 * Pipenv
-* Facebook Page and App
+* Line Developer
 * HTTPS Server
 
 #### Install Dependency
 ```sh
 pip3 install pipenv
-
-pipenv --three
-
-pipenv install
-
-pipenv shell
 ```
 
 * pygraphviz (For visualizing Finite State Machine)
     * [Setup pygraphviz on Ubuntu](http://www.jianshu.com/p/a3da7ecc5303)
 	* [Note: macOS Install error](https://github.com/pygraphviz/pygraphviz/issues/100)
 
-
-#### Secret Data
-You should generate a `.env` file to set Environment Variables refer to our `.env.sample`.
-`LINE_CHANNEL_SECRET` and `LINE_CHANNEL_ACCESS_TOKEN` **MUST** be set to proper values.
-Otherwise, you might not be able to run your code.
-
-#### Run Locally
-You can either setup https server or using `ngrok` as a proxy.
-
-#### a. Ngrok installation
-* [ macOS, Windows, Linux](https://ngrok.com/download)
-
-or you can use Homebrew (MAC)
-```sh
-brew cask install ngrok
-```
-
-**`ngrok` would be used in the following instruction**
-
-```sh
-ngrok http 8000
-```
-
-After that, `ngrok` would generate a https URL.
+* GVedit (Graphviz)
+	* [Setup GVedit](https://www.npackd.org/p/org.graphviz.Graphviz/2.38?fbclid=IwAR3BOz_YmEFW9tfguDnE4bTIg_uV4NW6D5h3l8CzcLj-siFB48vb1BVS4EE)
+	* [reference](https://blog.csdn.net/lanchunhui/article/details/49472949?fbclid=IwAR36vgJ4AJ9KLAoNB5MyQaW-7yjQcNmz2I05BLmSqbOkaOQG7frwrIYiR6k)
 
 #### Run the sever
 
 ```sh
 python3 app.py
 ```
-
-#### b. Servo
-
-Or You can use [servo](http://serveo.net/) to expose local servers to the internet.
-
 
 ## Finite State Machine
 ![fsm](./img/show-fsm.png)
@@ -79,11 +40,26 @@ The initial state is set to `user`.
 Every time `user` state is triggered to `advance` to another state, it will `go_back` to `user` state after the bot replies corresponding message.
 
 * user
-	* Input: "go to state1"
-		* Reply: "I'm entering state1"
+	* Input: "menu"
+		* Reply: Show the choice of the menu
 
-	* Input: "go to state2"
-		* Reply: "I'm entering state2"
+	![menu](./img/menu.png)
+
+
+	* Input: "麥當勞"
+		* Reply: Randomly show two combination of food and snack
+	
+	![macdonald](./img/mac.jpg)
+
+
+	* Input: "路易莎"
+		* Reply: Randomly show two combination of food and drink
+	
+	![louisa](./img/louisa.jpg)
+
+* First,  input "menu" to wake user interface up
+* Second, put one of the buttons of "麥當勞" or "路易莎" and it will provide user two recommendations of the meal
+* Third,  input "menu" again to get the user interface again
 
 ## Deploy
 Setting to deploy webhooks on Heroku.
